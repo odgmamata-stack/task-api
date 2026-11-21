@@ -8,11 +8,10 @@ from pwdlib import PasswordHash
 from sqlmodel import Field, Session, SQLModel, create_engine, select
 
 app = FastAPI(title="Task API")
-
-engine = create_engine("sqlite:///taches.db")
+engine = create_engine(os.environ.get("DATABASE_URL", "sqlite:///taches.db"))
 hasheur = PasswordHash.recommended()
 
-SECRET_KEY = os.environ.get("SECRET_KEY", "cle-de-developpement-a-changer")
+SECRET_KEY = os.environ.get("SECRET_KEY", "cle-de-developpement-longue-a-remplacer-avant-la-mise-en-ligne")
 ALGORITHME = "HS256"
 DUREE_JETON_MINUTES = 60
 schema_oauth2 = OAuth2PasswordBearer(tokenUrl="connexion")
